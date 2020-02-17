@@ -396,6 +396,11 @@ RestClient::Connection::performCurlRequest(const std::string& uri) {
                      this->unixSocketPath.c_str());
   }
 
+
+  curl_easy_setopt(this->curlHandle, CURLOPT_SSL_VERIFYPEER, 0L);
+  curl_easy_setopt(this->curlHandle, CURLOPT_SSL_VERIFYHOST, 0L);
+  curl_easy_setopt(this->curlHandle, CURLOPT_SSLVERSION, CURL_SSLVERSION_TLSv1_2);
+  
   res = curl_easy_perform(this->curlHandle);
   if (res != CURLE_OK) {
     switch (res) {
